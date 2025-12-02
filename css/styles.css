@@ -1,0 +1,437 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+#loading-screen.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 24px;
+    margin-bottom: 10px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-hint {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Camera Feed */
+#camera-feed {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 200px;
+    height: 150px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    object-fit: cover;
+    z-index: 100;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+#camera-feed:hover {
+    opacity: 1;
+}
+
+/* Scene Container */
+.scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s;
+}
+
+.scene.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.scene canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Scene Text */
+.scene-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.fade-in-text {
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    animation: fadeIn 3s ease-in;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Instructions */
+.instruction {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    animation: bounce 2s infinite;
+}
+
+.instruction p {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Timeline Info */
+.timeline-info {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px 50px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    max-width: 600px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.timeline-info.active {
+    opacity: 1;
+}
+
+.timeline-info h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: #ffd700;
+}
+
+.timeline-info p {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+/* Blessing Text */
+.blessing-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.blessing-item {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+/* Candle Instructions */
+.candle-instruction {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 28px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+/* Finale Content */
+.finale-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.finale-name {
+    font-size: 72px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    animation: scaleIn 2s ease-out;
+    background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: scaleIn 2s ease-out, gradientShift 3s ease infinite;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.finale-heart {
+    font-size: 120px;
+    animation: heartbeat 1.5s ease-in-out infinite;
+    margin: 20px 0;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+}
+
+.finale-message {
+    font-size: 36px;
+    margin-top: 30px;
+    animation: fadeIn 3s ease-in 2s both;
+    letter-spacing: 3px;
+}
+
+/* Progress Indicator */
+#progress-indicator {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 90;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s;
+}
+
+.progress-dot.active {
+    background: #fff;
+    transform: scale(1.5);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+.progress-dot.completed {
+    background: #4caf50;
+}
+
+/* Debug Panel */
+#debug-panel {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 12px;
+    max-width: 300px;
+    z-index: 100;
+    opacity: 0.5;
+}
+
+#debug-panel:hover {
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .fade-in-text {
+        font-size: 32px;
+    }
+
+    .instruction p {
+        font-size: 14px;
+    }
+
+    .instruction {
+        padding: 15px 25px;
+        bottom: 30px;
+    }
+
+    #camera-feed {
+        width: 120px;
+        height: 90px;
+    }
+
+    .finale-name {
+        font-size: 48px;
+    }
+
+    .finale-heart {
+        font-size: 80px;
+    }
+
+    .finale-message {
+        font-size: 24px;
+    }
+
+    .timeline-info {
+        max-width: 90%;
+        padding: 20px 30px;
+    }
+
+    .timeline-info h2 {
+        font-size: 24px;
+    }
+
+    .timeline-info p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fade-in-text {
+        font-size: 24px;
+    }
+
+    .finale-name {
+        font-size: 36px;
+    }
+
+    .finale-message {
+        font-size: 18px;
+    }
+}
+
+/* Additional Effects */
+.snow-container, .petal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.snowflake, .petal {
+    position: absolute;
+    top: -10px;
+    color: #fff;
+    font-size: 20px;
+    animation: falling linear infinite;
+}
+
+@keyframes falling {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Smooth transitions between scenes */
+.scene-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+.scene-transition.active {
+    opacity: 1;
+    pointer-events: all;
+}
