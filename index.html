@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日惊喜 - Birthday Surprise</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen active">
+        <div class="loading-content">
+            <div class="loader"></div>
+            <p class="loading-text">正在准备惊喜...</p>
+            <p class="loading-hint">请允许摄像头访问权限</p>
+        </div>
+    </div>
+
+    <!-- Camera Feed (Hidden) -->
+    <video id="camera-feed" autoplay playsinline></video>
+    <canvas id="camera-canvas" style="display: none;"></canvas>
+
+    <!-- Scene 1: Starfield -->
+    <div id="scene-starfield" class="scene">
+        <canvas id="starfield-canvas"></canvas>
+        <div class="scene-text">
+            <h1 class="fade-in-text">有个人想对你说...</h1>
+        </div>
+        <div class="instruction">
+            <p>👋 挥手继续</p>
+        </div>
+    </div>
+
+    <!-- Scene 2: Photo Wall -->
+    <div id="scene-photowall" class="scene">
+        <canvas id="photowall-canvas"></canvas>
+        <div class="instruction">
+            <p>🙆 张开双臂让照片环绕</p>
+            <p>🙏 双手合拢汇聚照片</p>
+        </div>
+    </div>
+
+    <!-- Scene 3: Timeline -->
+    <div id="scene-timeline" class="scene">
+        <canvas id="timeline-canvas"></canvas>
+        <div class="timeline-info">
+            <h2 id="timeline-date"></h2>
+            <p id="timeline-text"></p>
+        </div>
+        <div class="instruction">
+            <p>👀 走近或后退浏览时光隧道</p>
+            <p>停留3秒查看详情</p>
+        </div>
+    </div>
+
+    <!-- Scene 4: Fireworks -->
+    <div id="scene-fireworks" class="scene">
+        <canvas id="fireworks-canvas"></canvas>
+        <div class="blessing-text" id="blessing-text"></div>
+        <div class="instruction">
+            <p>❤️ 做出比心手势触发</p>
+            <p>👏 拍手释放更多烟花</p>
+            <p>🙌 双手高举大爆发</p>
+        </div>
+    </div>
+
+    <!-- Scene 5: Candles -->
+    <div id="scene-candles" class="scene">
+        <canvas id="candles-canvas"></canvas>
+        <div class="candle-instruction">
+            <p id="candle-hint">保持静止5秒...</p>
+        </div>
+    </div>
+
+    <!-- Scene 6: Finale -->
+    <div id="scene-finale" class="scene">
+        <canvas id="finale-canvas"></canvas>
+        <div class="finale-content">
+            <h1 class="finale-name" id="finale-name"></h1>
+            <div class="finale-heart">❤️</div>
+            <p class="finale-message">往后余生，都是你</p>
+        </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div id="progress-indicator">
+        <div class="progress-dot" data-scene="0"></div>
+        <div class="progress-dot" data-scene="1"></div>
+        <div class="progress-dot" data-scene="2"></div>
+        <div class="progress-dot" data-scene="3"></div>
+        <div class="progress-dot" data-scene="4"></div>
+        <div class="progress-dot" data-scene="5"></div>
+    </div>
+
+    <!-- Debug Panel (can be hidden in production) -->
+    <div id="debug-panel">
+        <div id="debug-info"></div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose@0.0.7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@2.2.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh@0.0.5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/scenes/starfield.js"></script>
+    <script src="js/scenes/photowall.js"></script>
+    <script src="js/scenes/timeline.js"></script>
+    <script src="js/scenes/fireworks.js"></script>
+    <script src="js/scenes/candles.js"></script>
+    <script src="js/scenes/finale.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
