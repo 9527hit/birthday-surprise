@@ -61,6 +61,9 @@ class PhotoParticle extends Particle {
         this.imageData = imageData;
         this.rotation = 0;
         this.rotationSpeed = Utils.random(-0.02, 0.02);
+        // Store original position for floating animation
+        if (this.originalX === undefined) this.originalX = x;
+        if (this.originalY === undefined) this.originalY = y;
     }
     
     update() {

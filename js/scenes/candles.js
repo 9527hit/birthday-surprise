@@ -117,20 +117,38 @@ const CandlesScene = {
      * Create smoke effect
      */
     createSmoke(x, y) {
-        // Simple smoke particles rising
+        // Simple smoke particles rising - add to scene's particle system
+        // Note: For full functionality, this should integrate with a particle array
+        // For now, create visual effect directly on canvas
+        const smokeParticles = [];
         for (let i = 0; i < 20; i++) {
-            setTimeout(() => {
-                const particle = new Particle(x, y, {
-                    vx: Utils.random(-1, 1),
-                    vy: Utils.random(-2, -1),
-                    size: Utils.random(3, 8),
-                    color: '#888',
-                    life: Utils.random(0.5, 1),
-                    maxLife: 1
-                });
-                // Store in a smoke particles array if needed
-            }, i * 50);
+            smokeParticles.push(new Particle(x, y, {
+                vx: Utils.random(-1, 1),
+                vy: Utils.random(-2, -1),
+                size: Utils.random(3, 8),
+                color: '#888',
+                life: Utils.random(0.5, 1),
+                maxLife: 1
+            }));
         }
+        
+        // Animate smoke particles
+        let frame = 0;
+        const animateSmoke = () => {
+            frame++;
+            if (frame > 60) return; // Stop after 1 second
+            
+            this.ctx.save();
+            smokeParticles.forEach(particle => {
+                if (particle.update()) {
+                    particle.draw(this.ctx);
+                }
+            });
+            this.ctx.restore();
+            
+            requestAnimationFrame(animateSmoke);
+        };
+        animateSmoke();
     },
     
     /**

@@ -185,14 +185,20 @@ const CameraModule = {
     checkMouthOpen(mesh) {
         if (!mesh || mesh.length === 0) return;
         
-        // Use specific facial landmarks for mouth
-        // Upper lip: point 13, Lower lip: point 14
-        const upperLip = mesh[13];
-        const lowerLip = mesh[14];
-        
-        if (upperLip && lowerLip) {
-            const distance = Math.abs(upperLip[1] - lowerLip[1]);
-            this.mouthOpen = distance > 15; // Threshold for mouth open
+        // Use more reliable facial landmarks for mouth
+        // MediaPipe FaceMesh: Upper lip center: 13, Lower lip center: 14
+        // Alternative indices for more accuracy: 61 (upper inner), 291 (lower inner)
+        try {
+            const upperLip = mesh[13] || mesh[61];
+            const lowerLip = mesh[14] || mesh[291];
+            
+            if (upperLip && lowerLip) {
+                const distance = Math.abs(upperLip[1] - lowerLip[1]);
+                this.mouthOpen = distance > 12; // Adjusted threshold for mouth open
+            }
+        } catch (error) {
+            // Silently handle error if landmark indices are unavailable
+            this.mouthOpen = false;
         }
     },
     
